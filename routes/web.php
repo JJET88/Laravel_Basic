@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('index',["data"=>"this is the data passing from web."]);
+})->name("page.home");
 
-Route::get('/about-us',fn()=>view('about')->with("name","jjet"));
+Route::get('/about-us',fn()=>view('about')->with("name","jjet"))->name("page.about-us");
 
-Route::get('/service',fn()=>view('service')->with('services',"web development"));
+Route::get('/service',fn()=>view('service')->with('services',"web development"))->name("page.service");
