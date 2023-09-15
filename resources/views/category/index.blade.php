@@ -1,39 +1,37 @@
 @extends("layouts.master")
 @section('title')
-Item List Page
+Category List Page
 @endsection
 
 
 @section('content')
 <div class=" mt-3 md:mt-5">
 
-    <h4>Item List</h4>
+    <h4>Category List</h4>
     
 <table class=" table table-bordered table-hover">
     <thead>
         <tr>
             <td>#</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Stock</td>
+            <td>Title</td>
+            <td>Description</td>
             <td>Control</td>
         </tr>
     </thead>
     <tbody>
-        @forelse ($items as $item)
+        @forelse ($category as $item)
         <tr>
             <td>{{$item->id}}</td>
-            <td>{{$item->name}}</td>
-            <td>{{$item->price}}</td>
-            <td>{{$item->stock}}</td>
+            <td>{{$item->title}}</td>
+            <td>{{$item->description}}</td>
             <td>
-                <a class="btn btn-sm btn-outline-primary" href="{{route("item.show",$item->id)}}">Detail</a>
-                <form class=" d-inline-block" action="{{route("item.destroy",$item->id)}}" method="post">
+                <a class="btn btn-sm btn-outline-primary" href="{{route("category.show",$item->id)}}">Detail</a>
+                <form class=" d-inline-block" action="{{route("category.destroy",$item->id)}}" method="post">
                     @method('delete')
                     @csrf
                     <button class=" btn btn-sm btn-outline-danger">Delete</button>
                 </form>
-                <a class=" btn btn-sm btn-outline-info" href="{{route("item.edit",$item->id)}}">Edit</a>
+                <a class=" btn btn-sm btn-outline-info" href="{{route("category.edit",$item->id)}}">Edit</a>
             </td>
 
         </tr>
@@ -41,7 +39,7 @@ Item List Page
         <tr>
             <td colspan="4" class=" text-center ">
                 There is no record <br>
-                <a class=" btn btn-sm btn-primary" href="{{route('item.create')}}"> Create Item</a>
+                <a class=" btn btn-sm btn-primary" href="{{route('category.create')}}"> Create Category</a>
             </td>
         </tr>
         

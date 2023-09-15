@@ -10,5 +10,12 @@
     <div class=" list-group">
         <a href="{{route("item.index")}}" class="list-group-item list-group-item-action"> Item List</a>
     </div>
+    <p> Manage Category</p>
+    <div class=" list-group mb-1">
+        <a href="{{route("category.create")}}" class="list-group-item list-group-item-action"> Create Catetory</a>
+    </div>
+    <div class=" list-group">
+        <a href="{{route("category.index")}}" class="list-group-item list-group-item-action"> Category List</a>
+    </div>
 
 </section>

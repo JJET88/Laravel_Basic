@@ -18,6 +18,28 @@ class ItemController extends Controller
             "items"=>Item::all()
         ]);
     }
+    public function show($id){
+         
+        return view("inventory.show",['item'=>Item::findOrFail($id)]);
+        
+    }
+    public function destroy($id){
+        $item =Item::find($id);
+        $item->delete();
+        return redirect()->back();
+    }
+    public function edit($id){
+        
+        return view("inventory.edit",["item" => Item::findOrFail($id)]);
+    }
+    public function update($id,Request $request){
+        $item = Item::findOrFail($id);
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->stock = $request->stock;
+        $item->update();
+        return redirect()->route("item.index");
+    }
 
     public function store(Request $request){
         $item = new Item();
