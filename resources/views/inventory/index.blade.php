@@ -27,13 +27,13 @@ Item List Page
             <td>{{$item->price}}</td>
             <td>{{$item->stock}}</td>
             <td>
-                <a class="btn btn-sm btn-outline-primary" href="{{route("item.show",$item->id)}}">Detail</a>
-                <form class=" d-inline-block" action="{{route("item.destroy",$item->id)}}" method="post">
+                <a class="btn btn-sm btn-outline-primary" href="{{route("inventory.show",$item->id)}}">Detail</a>
+                <form class=" d-inline-block" action="{{route("inventory.destroy",$item->id)}}" method="post">
                     @method('delete')
                     @csrf
                     <button class=" btn btn-sm btn-outline-danger">Delete</button>
                 </form>
-                <a class=" btn btn-sm btn-outline-info" href="{{route("item.edit",$item->id)}}">Edit</a>
+                <a class=" btn btn-sm btn-outline-info" href="{{route("inventory.edit",$item->id)}}">Edit</a>
             </td>
 
         </tr>
@@ -41,13 +41,13 @@ Item List Page
         <tr>
             <td colspan="4" class=" text-center ">
                 There is no record <br>
-                <a class=" btn btn-sm btn-primary" href="{{route('item.create')}}"> Create Item</a>
+                <a class=" btn btn-sm btn-primary" href="{{route('inventory.create')}}"> Create Item</a>
             </td>
         </tr>
         
         @endforelse
     </tbody>
 </table>
-
+{{$items->onEachSide(1)->links()}}
 </div>
 @endsection
