@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PageController;
+use App\Http\Middleware\IsAuthenticated;
+use App\Http\Middleware\IsNotAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/",[PageController::class,'home'])->name("page.home");
+Route::get("/", [PageController::class, 'home'])->name("page.home");
 
 
 // Route::get('/inventory',[ItemController::class,'index'])->name('item.index');
@@ -26,6 +30,27 @@ Route::get("/",[PageController::class,'home'])->name("page.home");
 // Route::get('/inventory/{id}/edit',[ItemController::class,'edit'])->name('item.edit');
 // Route::put("/inventory/{id}",[ItemController::class,"update"])->name('item.update');
 // Route::delete('/inventory/{id}',[ItemController::class,"destroy"])->name("item.destroy");
-Route::resource("inventory",ItemController::class);
 
-Route::resource("category",CategoryController::class);
+Route::middleware(IsAuthenticated::class)->group(function () {
+
+    Route::resource("inventory", ItemController::class);
+    Route::resource("category", CategoryController::class);
+    Route::controller(HomeController::class)->prefix("dashboard")->group(function () {
+
+        Route::get("home", "home")->name("dashboard.home");
+    });
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::middleware(IsNotAuthenticated::class)->group(function () {
+        Route::get("register", "register")->name("auth.register");
+        Route::post("register", "store")->name("auth.store");
+        Route::get("login", "login")->name("auth.login");
+        Route::post("login", "check")->name("auth.check");
+    });
+
+    Route::middleware(IsAuthenticated::class)->group(function () {
+
+        Route::post("logout", "logout")->name("auth.logout");
+    });
+});
